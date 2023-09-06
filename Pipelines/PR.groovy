@@ -13,6 +13,7 @@ pipeline {
                         sh 'yarn --frozen-lockfile'
                         sh 'node --version'
                         sh 'ls -la'
+                        sh 'yarn build'
                     } 
                 }
             }
