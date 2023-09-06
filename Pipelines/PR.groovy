@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     docker.image('node:lts').inside {
-                        sh 'yarn --frozen-lockfile --verbose'
+                        sh 'yarn --frozen-lockfile'
                         sh 'node --version'
                         sh 'ls -la'
                     } 
