@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'build-agent-1'
+    }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
     }
@@ -8,7 +10,7 @@ pipeline {
             steps {
                 script {
                     docker.image('node:lts').inside {
-                        sh 'yarn install --verbose'
+                        sh 'yarn --frozen-lockfile --verbose'
                         sh 'node --version'
                         sh 'ls -la'
                     } 
