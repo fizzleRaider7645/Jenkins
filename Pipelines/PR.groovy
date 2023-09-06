@@ -1,15 +1,13 @@
 pipeline {
-    agent {
-        docker { 
-            image 'node:lts' 
-        }
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
-                sh 'node --version'
-                sh 'pwd'
-                echo 'Building...'
+                docker.image('node:lts').inside {
+                    sh 'npm install'
+                    sh 'node --version'
+                    sh 'ls -la'
+                }
             }
         }
         stage('Test') {
