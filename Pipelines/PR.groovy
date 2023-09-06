@@ -3,10 +3,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                docker.image('node:lts').inside {
+                script {
+                    docker.image('node:lts').inside {
                     sh 'npm install'
                     sh 'node --version'
                     sh 'ls -la'
+                    }
                 }
             }
         }
