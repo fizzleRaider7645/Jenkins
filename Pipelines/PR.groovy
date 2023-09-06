@@ -8,10 +8,10 @@ pipeline {
             steps {
                 script {
                     docker.image('node:lts').inside {
-                    sh 'yarn install --verbose'
-                    sh 'node --version'
-                    sh 'ls -la'
-                    }
+                        sh 'yarn install --verbose'
+                        sh 'node --version'
+                        sh 'ls -la'
+                    } 
                 }
             }
         }
