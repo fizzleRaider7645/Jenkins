@@ -22,15 +22,15 @@ pipeline {
         stage('Build/Deploy') {
             steps {
                 script {
-                    docker.image('node:lts').inside('-u 0:0') {
+                    docker.image('douglasuretsky/pipeline-images:deploy-env-image-1.0.0').inside('-u 0:0') {
                         sh '''
-                          apt-get update && apt-get install -y awscli
-                          yarn --frozen-lockfile
-                          node --version
-                          ls -la
-                          yarn run build
-                          ls -la ${WORKSPACE}/build
-                          aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
+                            apt-get update && apt-get install -y awscli
+                            yarn --frozen-lockfile
+                            node --version
+                            ls -la
+                            yarn run build
+                            ls -la ${WORKSPACE}/build
+                            aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
                         '''
                     }
                 }

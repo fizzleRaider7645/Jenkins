@@ -7,12 +7,12 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('node:lts').inside('-u 0:0') {
+                    docker.image('douglasuretsky/pipeline-images:pr-env-image-1.0.0').inside('-u 0:0') {
                         sh '''
-                          yarn --frozen-lockfile
-                          node --version
-                          ls -la
-                          yarn run build
+                            yarn --frozen-lockfile
+                            node --version
+                            ls -la
+                            yarn run build
                         '''
                     }
                 }
