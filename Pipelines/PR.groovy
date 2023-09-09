@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('node:lts').inside {
+                    docker.image('node:lts').inside('-u 0:0') {
                         sh 'apt-get update && apt-get install -y awscli'
                         sh 'yarn --frozen-lockfile'
                         sh 'node --version'
