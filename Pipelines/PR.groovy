@@ -14,6 +14,8 @@ pipeline {
                         sh 'node --version'
                         sh 'ls -la'
                         sh 'yarn run build'
+                        sh 'echo "Workspace is at ${WORKSPACE}"
+'
                     } 
                 }
             }
