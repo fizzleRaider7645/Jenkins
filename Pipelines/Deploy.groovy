@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'GIT_SSH_URL', defaultValue: 'git@github.com:user/repo.git', description: 'The SSH URL of the Git repository')
+        string(name: 'GIT_SSH_URL', defaultValue: 'git@github.com:fizzleRaider7645/le.nez.git', description: 'The SSH URL of the Git repository')
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'The branch name to checkout')
     }
     environment {
