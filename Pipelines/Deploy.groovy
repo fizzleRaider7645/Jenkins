@@ -1,10 +1,10 @@
 pipeline {
     agent {
-        label any
+        label 'any'
     }
     parameters {
-        string(name: 'GIT_SSH_URL', defaultValue: 'ssh://git@github.com/user/repo.git', description: 'The SSH URL of the Git repository')
-        string(name: 'BRANCH_NAME', defaultValue: 'test-pr_2', description: 'The branch name to checkout')
+        string(name: 'GIT_SSH_URL', defaultValue: 'git@github.com:user/repo.git', description: 'The SSH URL of the Git repository')
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'The branch name to checkout')
     }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
@@ -15,10 +15,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: "${params.BRANCH_NAME}"]], 
-                    userRemoteConfigs: [[url: 'git@github.com:your-repo.git', credentialsId: 'GitHub_SSH_Key_for_Jenkins']]
-
+                    $class: 'GitSCM',
+                    branches: [[name: "${params.BRANCH_NAME}"]],
+                    userRemoteConfigs: [[url: "${params.GIT_SSH_URL}", credentialsId: 'GitHub_SSH_Key_for_Jenkins']]
                 ])
             }
         }
@@ -26,14 +25,15 @@ pipeline {
             steps {
                 script {
                     docker.image('node:lts').inside('-u 0:0') {
-
-                        sh 'apt-get update && apt-get install -y awscli'
-                        sh 'yarn --frozen-lockfile'
-                        sh 'node --version'
-                        sh 'ls -la'
-                        sh 'yarn run build'
-                        sh 'echo ${WORKSPACE}'
-                        sh 'aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive'
+                        sh '''
+                          apt-get update && apt-get install -y awscli
+                          yarn --frozen-lockfile
+                          node --version
+                          ls -la
+                          yarn run build
+                          ls -la ${WORKSPACE}/build
+                          aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
+                        '''
                     }
                 }
             }
