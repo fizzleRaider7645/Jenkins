@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                docker.image('node:lts') {
+                docker.image('node:lts').inside('-u 0:0') {
                     sh '''
                         yarn --frozen-lockfile
                         node --version
