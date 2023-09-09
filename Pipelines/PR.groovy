@@ -19,9 +19,9 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Deploy') {
             steps {
-                echo 'Testing...'
+                sh 'aws s3 cp $WORKSPACE/build s3://avocado-blue/'
             }
         }
     }
