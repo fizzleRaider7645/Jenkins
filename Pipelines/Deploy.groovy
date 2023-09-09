@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'GIT_SSH_URL', defaultValue: 'git@github.com:fizzleRaider7645/le.nez.git', description: 'The SSH URL of the Git repository')
-        string(name: 'BRANCH_NAME', defaultValue: 'test-pr-2', description: 'The branch name to checkout')
+        string(name: 'BRANCH_NAME', defaultValue: 'test-pr_2', description: 'The branch name to checkout')
     }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
