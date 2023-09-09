@@ -25,11 +25,10 @@ pipeline {
                     docker.image('node:lts').inside('-u 0:0') {
                         sh '''
                           apt-get update && apt-get install -y awscli
-                          apt install yarn
-                          yarn --frozen-lockfile
+                          npm i
                           node --version
                           ls -la
-                          yarn run build
+                          npm run build
                           ls -la ${WORKSPACE}/build
                           aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
                         '''
