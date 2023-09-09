@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'build-agent-1'
+        label 'build-agent-2'
     }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
@@ -13,7 +13,7 @@ pipeline {
                         sh 'yarn --frozen-lockfile'
                         sh 'node --version'
                         sh 'ls -la'
-                        sh 'yarn build'
+                        sh 'yarn run build'
                     } 
                 }
             }
