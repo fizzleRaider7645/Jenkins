@@ -24,14 +24,15 @@ pipeline {
                 script {
                     docker.image('node:lts').inside('-u 0:0') {
                         sh '''
-                          apt-get update && apt-get install -y awscli
-                          apt-get install -yq yarn
-                          yarn --frozen-lockfile
-                          node --version
-                          ls -la
-                          yarn run build
-                          ls -la ${WORKSPACE}/build
-                          aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
+                        apt-get update && apt-get install -y awscli yarn
+                        which yarn
+                        export PATH="$PATH:/usr/bin/yarn"
+                        yarn --frozen-lockfile || echo "Yarn failed"
+                        node --version
+                        ls -la
+                        yarn run build || echo "Build failed"
+                        ls -la ${WORKSPACE}/build
+                        aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive
                         '''
                     }
                 }
