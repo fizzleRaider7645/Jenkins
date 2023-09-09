@@ -6,11 +6,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    sh 'yarn --frozen-lockfile'
-                    sh 'node --version'
-                    sh 'ls -la'
-                    sh 'yarn run build'
+                docker.image('node:lts') {
+                    sh '''
+                        yarn --frozen-lockfile
+                        node --version
+                        ls -la
+                        yarn run build
+                        ls -la ${WORKSPACE}/build
+                    '''
                 }
             }
         }
