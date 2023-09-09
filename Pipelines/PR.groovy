@@ -18,8 +18,8 @@ pipeline {
                         sh 'ls -la'
                         sh 'yarn run build'
                         sh 'echo ${WORKSPACE}'
-                        sh 'aws s3 cp $WORKSPACE/build s3://avocado-blue/'
-                    } 
+                        sh 'aws s3 cp ${WORKSPACE}/build s3://avocado-blue/ --recursive'
+                    }
                 }
             }
         }
