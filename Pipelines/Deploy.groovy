@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'any'
+        label any
     }
     parameters {
         string(name: 'GIT_SSH_URL', defaultValue: 'git@github.com:user/repo.git', description: 'The SSH URL of the Git repository')
