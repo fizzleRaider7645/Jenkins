@@ -35,6 +35,15 @@ pipeline {
                     }
                 }
             }
+            post {
+                always {
+                    script {
+                        sh '''
+                            docker rm $(docker ps -a -q) -f
+                        '''
+                    }
+                }
+            }
         }
     }
 }
