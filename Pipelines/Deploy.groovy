@@ -24,7 +24,8 @@ pipeline {
                 script {
                     docker.image('node:lts').inside('-u 0:0') {
                         sh '''
-                          apt-get update && apt-get install -y awscli && apt-get install -yq yarn
+                          apt-get update && apt-get install -y awscli
+                          apt-get install -yq yarn
                           yarn --frozen-lockfile
                           node --version
                           ls -la
