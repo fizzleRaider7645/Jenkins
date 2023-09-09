@@ -8,7 +8,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('my-aws-secret-access-key')
     }
     stages {
-        stage('Build') {
+        stage('Build/Deploy') {
             steps {
                 script {
                     docker.image('node:lts').inside('-u 0:0') {
